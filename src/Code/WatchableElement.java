@@ -1,10 +1,23 @@
+package Code;
+
+import java.util.ArrayList;
+
 public class WatchableElement {
 
     private String title;
     private String description;
     private int length;
-    private float rating;
-    private String[] productionCountries;
+    private int rating;
+    private ArrayList<String> productionCountries;
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 
     public String getTitle() {
         return title;
@@ -30,19 +43,19 @@ public class WatchableElement {
         this.length = length;
     }
 
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
-    public String[] getProductionCountries() {
+    public ArrayList<String> getProductionCountries() {
         return productionCountries;
     }
 
-    public void setProductionCountries(String[] productionCountries) {
+    public void setProductionCountries(ArrayList<String> productionCountries) {
         this.productionCountries = productionCountries;
     }
 }

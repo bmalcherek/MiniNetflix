@@ -1,10 +1,13 @@
 package sample;
 
+import Code.Databases.MoviesDB;
+import Code.Databases.NamesDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Code.*;
 
 public class Main extends Application {
 
@@ -18,6 +21,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        NamesDB namesDB = new NamesDB();
+        namesDB.load();
+        Simulation simulation = new Simulation();
+        simulation.startSimulation();
+        MoviesDB db = new MoviesDB();
         launch(args);
     }
 }
