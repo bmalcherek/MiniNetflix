@@ -12,18 +12,7 @@ public class Simulation {
         TimeHandler timeHandler = new TimeHandler();
         timeHandler.setDaemon(true);
         timeHandler.start();
-        double rand;
         this.addDistributor();
-        while (true) {
-            rand = Math.random();
-            if (rand < this.newClientChance) {
-                this.addClient();
-            }
-
-            for (Distributor distributor : this.distributorList) {
-                distributor.addMovie();
-            }
-        }
     }
 
     private void addClient() {
@@ -33,6 +22,8 @@ public class Simulation {
 
     private void addDistributor() {
         Distributor newDistributor = new Distributor();
+        newDistributor.setDaemon(true);
+        newDistributor.start();
         this.distributorList.add(newDistributor);
     }
 
