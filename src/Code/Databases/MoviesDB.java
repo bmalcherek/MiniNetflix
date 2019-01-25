@@ -5,13 +5,27 @@ import java.net.URL;
 import java.util.*;
 
 public class MoviesDB {
-    private List<String> titleFirstParts = new ArrayList<String>();
-    private List<String> titleLastParts = new ArrayList<String>();
-    private List<String> descriptions = new ArrayList<String>();
-    private List<String> productionCountries = new ArrayList<String>();
-    private List<String> actors = new ArrayList<String>();
-    private List<String> genres = new ArrayList<String>();
+    private List<String> titleFirstParts = new ArrayList<>();
+    private List<String> titleLastParts = new ArrayList<>();
+    private List<String> descriptions = new ArrayList<>();
+    private List<String> productionCountries = new ArrayList<>();
+    private List<String> actors = new ArrayList<>();
+    private List<String> genres = new ArrayList<>();
     private Random randomGenerator = new Random();
+
+    public static MoviesDB instance;
+
+    public static MoviesDB getInstance() {
+        if(instance == null) {
+            instance = new MoviesDB();
+        }
+
+        return instance;
+    }
+
+    private MoviesDB() {
+        load();
+    }
 
     private void load() {
         URL url = getClass().getResource("titleFirstPartsMovies.txt");

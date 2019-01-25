@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Simulation extends Application {
+public class Simulation {
 
     private List<Client> clientList = new ArrayList<>();
     private volatile List<Distributor> distributorList = new ArrayList<>();
@@ -17,8 +17,6 @@ public class Simulation extends Application {
         TimeHandler timeHandler = new TimeHandler();
         timeHandler.setDaemon(true);
         timeHandler.start();
-        this.addDistributor();
-        this.addClient();
         while(true) {
             if(timeHandler.checkIfEndOfMonth()){
                 System.out.println("Payment time");
@@ -30,27 +28,19 @@ public class Simulation extends Application {
         }
     }
 
-    private void addClient() {
-        Client newClient = new Client(this.distributorList);
-        newClient.setDaemon(true);
-        newClient.start();
-        this.clientList.add(newClient);
-    }
-
-    public void addDistributor() {
-        Distributor newDistributor = new Distributor();
-        newDistributor.setDaemon(true);
-        newDistributor.start();
-        this.distributorList.add(newDistributor);
-
-        System.out.println("Distributor added");
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("GUI/sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.show();
-    }
+//    private void addClient() {
+//        Client newClient = new Client(this.distributorList);
+//        newClient.setDaemon(true);
+//        newClient.start();
+//        this.clientList.add(newClient);
+//    }
+//
+//    public void addDistributor() {
+//        Distributor newDistributor = new Distributor();
+//        newDistributor.setDaemon(true);
+//        newDistributor.start();
+//        this.distributorList.add(newDistributor);
+//
+//        System.out.println("Distributor added");
+//    }
 }

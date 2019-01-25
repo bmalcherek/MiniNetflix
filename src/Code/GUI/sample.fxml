@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Code.Simulation">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Code.GUI.Controller">
    <center>
       <VBox prefHeight="349.0" prefWidth="501.0" BorderPane.alignment="CENTER">
          <children>
