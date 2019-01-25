@@ -1,4 +1,4 @@
-package sample;
+package Code;
 
 import Code.Databases.MoviesDB;
 import Code.Databases.NamesDB;
@@ -7,25 +7,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Code.*;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("GUI/sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        NamesDB namesDB = new NamesDB();
-        namesDB.load();
+        launch(args);
+
         Simulation simulation = new Simulation();
         simulation.startSimulation();
-        MoviesDB db = new MoviesDB();
-        launch(args);
+//        NamesDB namesDB = new NamesDB();
+//        namesDB.load();
+//        MoviesDB db = new MoviesDB();
     }
 }
