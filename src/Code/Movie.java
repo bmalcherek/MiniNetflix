@@ -17,7 +17,7 @@ public class Movie extends WatchableElement {
     private Date productionDate = new Date();
 
     public Movie(){
-        MoviesDB moviesDB = new MoviesDB();
+        MoviesDB moviesDB = MoviesDB.getInstance();
         ArrayList<String> movieData = moviesDB.getMovieData();
         ArrayList<String> pc = moviesDB.getProductionCountries();
 

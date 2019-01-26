@@ -1,46 +1,31 @@
 package Code;
 
 import java.util.*;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-public class Simulation {
+import static java.lang.Thread.sleep;
 
-    private List<Client> clientList = new ArrayList<>();
-    private volatile List<Distributor> distributorList = new ArrayList<>();
+public class Simulation{
+
     private long account;
 
-    public void startSimulation(){
+    public void startSimulation() {
         TimeHandler timeHandler = new TimeHandler();
         timeHandler.setDaemon(true);
         timeHandler.start();
-        while(true) {
-            if(timeHandler.checkIfEndOfMonth()){
-                System.out.println("Payment time");
-            }
+        Runnable task = () -> {
+            while (true) {
+                if (timeHandler.checkIfEndOfMonth()) {
+                    System.out.println("Payment time");
+                }
+                try {
+                    sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-            for (Client client : this.clientList) {
-                client.setDistributorList(this.distributorList);
             }
-        }
+        };
+
+        new Thread(task).start();
     }
-
-//    private void addClient() {
-//        Client newClient = new Client(this.distributorList);
-//        newClient.setDaemon(true);
-//        newClient.start();
-//        this.clientList.add(newClient);
-//    }
-//
-//    public void addDistributor() {
-//        Distributor newDistributor = new Distributor();
-//        newDistributor.setDaemon(true);
-//        newDistributor.start();
-//        this.distributorList.add(newDistributor);
-//
-//        System.out.println("Distributor added");
-//    }
 }

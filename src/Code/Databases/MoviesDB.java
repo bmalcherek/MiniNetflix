@@ -107,9 +107,9 @@ public class MoviesDB {
         }
     }
 
-    public MoviesDB() {
-        this.load();
-    }
+//    public MoviesDB() {
+//        this.load();
+//    }
 
     public ArrayList<String> getMovieData() {
         ArrayList<String> movieData = new ArrayList<String>();
@@ -132,7 +132,7 @@ public class MoviesDB {
     }
 
     public ArrayList<String> getProductionCountries() {
-        ArrayList<String> pc = new ArrayList<String>();
+        ArrayList<String> pc = new ArrayList<>();
 
         int howManyCountries = this.randomGenerator.nextInt(3) + 1;
         for (int i = 0; i < howManyCountries; i++) {
@@ -146,7 +146,7 @@ public class MoviesDB {
     }
 
     public ArrayList<String> getCast() {
-        ArrayList<String> cast = new ArrayList<String>();
+        ArrayList<String> cast = new ArrayList<>();
 
         int howBigCast = this.randomGenerator.nextInt(4) + 1;
         for(int i = 0; i < howBigCast; i++) {

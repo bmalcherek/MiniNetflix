@@ -30,10 +30,14 @@ public class ClientsAndDistributorsListsSingleton {
 
     public void addDistributor(Distributor distributor) {
         distributorsList.add(distributor);
+        distributor.start();
+//        distributor.setDaemon(true);
     }
 
     public void addClient(Client client) {
         clientsList.add(client);
+        client.start();
+//        client.setDaemon(true);
     }
 
 }
