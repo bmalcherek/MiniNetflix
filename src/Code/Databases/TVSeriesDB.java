@@ -1,8 +1,12 @@
 package Code.Databases;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class TVSeriesDB {
     private List<String> titleFirstParts = new ArrayList<>();
@@ -14,7 +18,7 @@ public class TVSeriesDB {
     private Random randomGenerator = new Random();
 
     private void load() {
-        URL url = getClass().getResource("titleFirstPartsTVSeries.txt");
+        URL url = getClass().getResource("titleFirstPartsMovies.txt");
         File file = new File(url.getPath());
         Scanner sc = null;
         try {
@@ -27,7 +31,7 @@ public class TVSeriesDB {
             this.titleFirstParts.add(sc.nextLine());
         }
 
-        url = getClass().getResource("titleLastPartsTVSeries.txt");
+        url = getClass().getResource("titleLastPartsMovies.txt");
         file = new File(url.getPath());
 
         try {

@@ -26,5 +26,17 @@ public class Subscription {
     public int getPrice() {
         return price;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getMaxResolution() {
+        return maxResolution;
+    }
+
+    public int getHowManyDevices() {
+        return howManyDevices;
+    }
 }
 

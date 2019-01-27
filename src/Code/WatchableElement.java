@@ -1,6 +1,8 @@
 package Code;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class WatchableElement implements Comparable<WatchableElement> {
 
@@ -11,6 +13,9 @@ public class WatchableElement implements Comparable<WatchableElement> {
     private ArrayList<String> productionCountries;
     private int price;
     private long views;
+    private List<String> cast = new ArrayList<>();
+    private String genre;
+    private Date productionDate = new Date();
 
     public int getPrice() {
         return price;
@@ -68,6 +73,29 @@ public class WatchableElement implements Comparable<WatchableElement> {
         return views;
     }
 
+    public List<String> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<String> cast) {
+        this.cast = cast;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public Date getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate(Date productionDate) {
+        this.productionDate = productionDate;
+    }
 
     @Override
     public int compareTo(WatchableElement o) {

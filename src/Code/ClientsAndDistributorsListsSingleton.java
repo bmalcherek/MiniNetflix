@@ -37,19 +37,22 @@ public class ClientsAndDistributorsListsSingleton {
         distributorsList.add(distributor);
         distributorsHashMap.put(distributor.getDistributorName(), distributor);
         distributor.start();
-//        distributor.setDaemon(true);
     }
 
     public void addClient(Client client) {
         clientsList.add(client);
         clientsHashMap.put(client.getClientName(), client);
         client.start();
-//        client.setDaemon(true);
     }
 
     public Distributor getDistributorByName(String name) {
         return distributorsHashMap.get(name);
     }
 
+    public Client getClientByName(String name) { return clientsHashMap.get(name); }
+
+    public HashMap<String, Client> getClientsHashMap() {
+        return clientsHashMap;
+    }
 }
 

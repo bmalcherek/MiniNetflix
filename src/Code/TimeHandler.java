@@ -1,7 +1,7 @@
 package Code;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.Calendar;
+import java.util.Date;
 
 public class TimeHandler extends Thread {
     private Date startDate;
@@ -13,21 +13,23 @@ public class TimeHandler extends Thread {
 
     public void run() {
         try {
-            while (true) {
-                if (!started) {
-                    this.started = true;
-                    this.startDate = new Date(System.currentTimeMillis());
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(this.startDate);
-                    calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-                    this.nextPaymentDate = calendar.getTime();
+            while (ProgramKiller.getInstance().getRunning()) {
+                while (true) {
+                    if (!started) {
+                        this.started = true;
+                        this.startDate = new Date(System.currentTimeMillis());
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(this.startDate);
+                        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                        this.nextPaymentDate = calendar.getTime();
+                    }
+                    sleep(1000);
+                    this.timePassed = (System.currentTimeMillis() - this.startDate.getTime()) * this.multiplier;
+                    this.currentDate = new Date(this.startDate.getTime() + this.timePassed);
+                    System.out.println("Date: " + this.currentDate);
                 }
-                sleep(1000);
-                this.timePassed = (System.currentTimeMillis() - this.startDate.getTime()) * this.multiplier;
-                this.currentDate = new Date(this.startDate.getTime() + this.timePassed);
-                System.out.println("Date: " + this.currentDate);
             }
-        } catch (InterruptedException e) {
+        } catch(InterruptedException e){
             e.printStackTrace();
         }
     }
@@ -50,4 +52,5 @@ public class TimeHandler extends Thread {
         }
         return false;
     }
+
 }

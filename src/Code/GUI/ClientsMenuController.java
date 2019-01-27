@@ -9,9 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,12 +21,56 @@ public class ClientsMenuController implements Initializable {
 
     @FXML
     ListView<String> clientsListView;
+    @FXML
+    Label name;
+    @FXML
+    Label subscriptionName;
+    @FXML
+    Label maxResolution;
+    @FXML
+    Label maxDevices;
+    @FXML
+    Label price;
+    @FXML
+    Label boughtElements;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Client client : ClientsAndDistributorsListsSingleton.getInstance().getClientsList()) {
             clientsListView.getItems().add(client.getClientName());
         }
+
+        name.setText("Please select client");
+        subscriptionName.setText("");
+        maxResolution.setText("");
+        maxDevices.setText("");
+        price.setText("");
+        boughtElements.setText("");
+    }
+
+    public void showClientData() {
+        String clientName = clientsListView.getSelectionModel().getSelectedItem();
+        Client client = ClientsAndDistributorsListsSingleton.getInstance().getClientByName(clientName);
+
+        name.setText(clientName);
+        subscriptionName.setText(client.getSubscription().getName());
+        maxResolution.setText("Max resolution: " + client.getSubscription().getMaxResolution());
+        maxDevices.setText("Max devices: " + client.getSubscription().getHowManyDevices());
+        price.setText("Price: " + client.getSubscription().getPrice());
+        if(!(client.getSubscription().getPrice() == 0)) {
+            boughtElements.setText("Client can watch all products");
+        } else {
+            boughtElements.setText("Client bought " + client.getBoughtWatchableElements().size() + " products");
+        }
+    }
+
+    public void deleteClient(ActionEvent event) throws IOException {
+        String clientName = clientsListView.getSelectionModel().getSelectedItem();
+        Client client = ClientsAndDistributorsListsSingleton.getInstance().getClientByName(clientName);
+        ClientsAndDistributorsListsSingleton.getInstance().getClientsList().remove(client);
+        ClientsAndDistributorsListsSingleton.getInstance().getClientsHashMap().remove(client.getClientName());
+        client = null;
+        switchToClientsMenu(event);
     }
 
     public void switchToMainMenu(ActionEvent event) throws IOException {
@@ -60,6 +104,4 @@ public class ClientsMenuController implements Initializable {
         window.setScene(productsMenuViewScene);
         window.show();
     }
-
-
 }

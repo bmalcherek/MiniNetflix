@@ -2,7 +2,9 @@ package Code.GUI;
 
 import Code.*;
 import javafx.event.ActionEvent;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +14,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.ResourceBundle;
 
 public class DistributorsMenuController implements Initializable {
     @FXML
@@ -60,13 +63,17 @@ public class DistributorsMenuController implements Initializable {
             valueOfAllProducts += element.getPrice();
         }
 
-        WatchableElement mostWatched = Collections.max(distributor.getProductList());
+        if(!distributor.getProductList().isEmpty()) {
+            WatchableElement mostWatched = Collections.max(distributor.getProductList());
+            mostWatchedElement.setText("Most watched product is " + mostWatched.getTitle() + " with " + mostWatched.getViews() + " views");
+        } else {
+            mostWatchedElement.setText("");
+        }
 
         moviesCount.setText("Total Movies: " + mCount);
         tvSeriesCount.setText("Total TV Series: " + tCount);
         value.setText("Value of all products: " + valueOfAllProducts);
         deal.setText("Current deal is " + distributor.getDeal() + "% of value of all products monthly");
-        mostWatchedElement.setText("Most watched product is " + mostWatched.getTitle() + " with " + mostWatched.getViews() + " views");
     }
 
     public void switchToMainMenu(ActionEvent event) throws IOException {
