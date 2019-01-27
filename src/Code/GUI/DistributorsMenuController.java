@@ -1,28 +1,72 @@
 package Code.GUI;
 
-import Code.ClientsAndDistributorsListsSingleton;
-import Code.Distributor;
+import Code.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DistributorsMenuController implements Initializable {
     @FXML
     ListView<String> distributorsListView;
+    @FXML
+    Label productsCount;
+    @FXML
+    Label moviesCount;
+    @FXML
+    Label tvSeriesCount;
+    @FXML
+    Label value;
+    @FXML
+    Label deal;
+    @FXML
+    Label mostWatchedElement;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Distributor distributor : ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList()) {
             distributorsListView.getItems().add(distributor.getDistributorName());
         }
+        productsCount.setText("Please choose distributor");
+        moviesCount.setText("");
+        tvSeriesCount.setText("");
+        value.setText("");
+        deal.setText("");
+        mostWatchedElement.setText("");
+    }
+
+    public void showDistributorData() {
+        int mCount = 0, tCount = 0, valueOfAllProducts = 0;
+
+        String distributorName = distributorsListView.getSelectionModel().getSelectedItem();
+        Distributor distributor = ClientsAndDistributorsListsSingleton.getInstance().getDistributorByName(distributorName);
+        productsCount.setText("Total products: " + distributor.getProductList().size());
+
+        for (WatchableElement element : distributor.getProductList()) {
+            if (element instanceof Movie) {
+                mCount++;
+            } else if (element instanceof TVSeries) {
+                tCount++;
+            }
+            valueOfAllProducts += element.getPrice();
+        }
+
+        WatchableElement mostWatched = Collections.max(distributor.getProductList());
+
+        moviesCount.setText("Total Movies: " + mCount);
+        tvSeriesCount.setText("Total TV Series: " + tCount);
+        value.setText("Value of all products: " + valueOfAllProducts);
+        deal.setText("Current deal is " + distributor.getDeal() + "% of value of all products monthly");
+        mostWatchedElement.setText("Most watched product is " + mostWatched.getTitle() + " with " + mostWatched.getViews() + " views");
     }
 
     public void switchToMainMenu(ActionEvent event) throws IOException {

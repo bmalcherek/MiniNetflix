@@ -2,7 +2,7 @@ package Code;
 
 import java.util.ArrayList;
 
-public class WatchableElement {
+public class WatchableElement implements Comparable<WatchableElement> {
 
     private String title;
     private String description;
@@ -10,6 +10,7 @@ public class WatchableElement {
     private int rating;
     private ArrayList<String> productionCountries;
     private int price;
+    private long views;
 
     public int getPrice() {
         return price;
@@ -57,5 +58,19 @@ public class WatchableElement {
 
     public void setProductionCountries(ArrayList<String> productionCountries) {
         this.productionCountries = productionCountries;
+    }
+
+    public synchronized void setViews(long views) {
+        this.views = views;
+    }
+
+    public synchronized long getViews() {
+        return views;
+    }
+
+
+    @Override
+    public int compareTo(WatchableElement o) {
+        return (int)(this.views - o.views);
     }
 }

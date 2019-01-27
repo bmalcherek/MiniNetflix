@@ -34,6 +34,7 @@ public class MainMenuController implements Initializable {
     }
 
     public void startSimulation(){
+//        Simulation.getInstance().run();
         Simulation simulation = new Simulation();
         simulation.startSimulation();
     }

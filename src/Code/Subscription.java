@@ -22,5 +22,9 @@ public class Subscription {
         this.price = prices[subscription];
         this.howManyDevices = devices[subscription];
     }
+
+    public int getPrice() {
+        return price;
+    }
 }
 

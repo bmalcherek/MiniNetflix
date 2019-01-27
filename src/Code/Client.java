@@ -22,14 +22,71 @@ public class Client extends Thread{
         this.email = clientData.get(2);
         this.creditCardNumber = clientData.get(3);
         this.subscription = new Subscription();
+        this.boughtWatchableElements = new ArrayList<>();
     }
 
-    public void run(){
-        while(true) {
+    public void run() {
+        double buyChance = 0.2, watchChance = 0.2;
+        Random randomGenerator = new Random();
+        while (true) {
+
+            //If not subscribed then buy WatchableElement
+
+            if (subscription.getPrice() == 0) {
+                double rand = Math.random();
+                if (rand <= buyChance) {
+                    if (!ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().isEmpty()) {
+                        int distributorsCount = ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().size();
+                        int distributorIndex = randomGenerator.nextInt(distributorsCount);
+                        if (!ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().get(distributorIndex).getProductList().isEmpty()) {
+                            int elementsCount = ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().get(distributorIndex).getProductList().size();
+                            int elementIndex = randomGenerator.nextInt(elementsCount);
+
+                            WatchableElement element = ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().get(distributorIndex).getProductList().get(elementIndex);
+
+                            this.boughtWatchableElements.add(element);
+                            Account.getInstance().accountOperations(element.getPrice());
+                        }
+                    }
+                }
+            }
+
+            //Watch a WatchableElement
+
+            if (subscription.getPrice() == 0) {
+                if (!boughtWatchableElements.isEmpty()) {
+                    int toWatchIndex = randomGenerator.nextInt(boughtWatchableElements.size());
+                    WatchableElement element = boughtWatchableElements.get(toWatchIndex);
+                    element.setViews(element.getViews() + 1);
+                }
+
+            } else {
+                if (!ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().isEmpty()) {
+                    int distributorsCount = ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().size();
+                    int distributorIndex = randomGenerator.nextInt(distributorsCount);
+                    if (!ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().get(distributorIndex).getProductList().isEmpty()) {
+                        int elementsCount = ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().get(distributorIndex).getProductList().size();
+                        int elementIndex = randomGenerator.nextInt(elementsCount);
+
+                        WatchableElement element = ClientsAndDistributorsListsSingleton.getInstance().getDistributorsList().get(distributorIndex).getProductList().get(elementIndex);
+                        element.setViews(element.getViews() + 1);
+                    }
+                }
+            }
+
+            try {
+                sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
         }
-
     }
+
+    public void pay() {
+        Account.getInstance().accountOperations(subscription.getPrice());
+    }
+
     public String getClientName() {
         return clientName;
     }
